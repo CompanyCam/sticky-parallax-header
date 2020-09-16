@@ -30,7 +30,7 @@ const AnimatedScrollView = createAnimatedComponent(ScrollView)
 class StickyParallaxHeader extends Component {
   constructor(props) {
     super(props)
-    const { initialPage } = this.props
+    const { initialPage, refreshing } = props
     const { width } = Dimensions.get('window')
     const scrollXIOS = new Value(initialPage * width)
     const containerWidthAnimatedValue = new Value(width)
@@ -43,7 +43,8 @@ class StickyParallaxHeader extends Component {
       scrollValue,
       containerWidth: width,
       currentPage: initialPage,
-      isFolded: false
+      isFolded: false,
+      refreshing: refreshing,
     }
     this.scrollY = new ValueXY()
   }
@@ -162,6 +163,11 @@ class StickyParallaxHeader extends Component {
     const { onChangeTab } = this.props
 
     return onChangeTab && onChangeTab(tab)
+  }
+
+  onRefreshHandler = ()=>{
+    const { onRefresh } = this.props
+    return onRefresh && onRefresh();
   }
 
   onLayout = (e) => {
@@ -335,7 +341,9 @@ class StickyParallaxHeader extends Component {
       parallaxHeight,
       tabs,
       bounces,
-      scrollEvent
+      scrollEvent,
+      refreshing,
+      onRefresh,
     } = this.props
     const { currentPage, isFolded } = this.state
     const scrollHeight = Math.max(parallaxHeight, headerHeight * 2)
@@ -369,6 +377,9 @@ class StickyParallaxHeader extends Component {
           scrollEventThrottle={1}
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            onRefresh? <RefreshControl refreshing={refreshing} onRefresh={()=>this.onRefreshHandler()} />: null
+          }
           onScroll={event(
             [
               {
@@ -453,7 +464,9 @@ StickyParallaxHeader.propTypes = {
   initialPage: number,
   onChangeTab: func,
   onEndReached: func,
+  onRefresh: func,
   parallaxHeight: number,
+  refreshing: bool,
   rememberTabScrollPosition: bool,
   scrollEvent: func,
   snapToEdge: bool,
