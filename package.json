@@ -1,27 +1,45 @@
 {
-  "name": "react-native-sticky-parallax-header",
-  "version": "0.3.0",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
-  "repository": "https://github.com/netguru/sticky-parallax-header",
-  "author": "IdaszakDaniel <idaszak1@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "release": "release-it"
+  "_from": "git+https://github.com/CompanyCam/sticky-parallax-header.git",
+  "_id": "react-native-sticky-parallax-header@0.3.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/react-native-sticky-parallax-header",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "react-native-sticky-parallax-header@git+https://github.com/CompanyCam/sticky-parallax-header.git",
+    "name": "react-native-sticky-parallax-header",
+    "escapedName": "react-native-sticky-parallax-header",
+    "rawSpec": "git+https://github.com/CompanyCam/sticky-parallax-header.git",
+    "saveSpec": "git+https://github.com/CompanyCam/sticky-parallax-header.git",
+    "fetchSpec": "https://github.com/CompanyCam/sticky-parallax-header.git",
+    "gitCommittish": null
   },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/CompanyCam/sticky-parallax-header.git#02d1e2fd6c4eeee80d662c9de972d07c0c9d6ab0",
+  "_spec": "react-native-sticky-parallax-header@git+https://github.com/CompanyCam/sticky-parallax-header.git",
+  "_where": "/Users/gaare/Documents/CompanyCam/mobile",
+  "author": {
+    "name": "IdaszakDaniel",
+    "email": "idaszak1@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/netguru/sticky-parallax-header/issues"
+  },
+  "bundleDependencies": false,
   "dependencies": {
     "prop-types": "^15.7.2"
   },
-  "peerDependencies": {
-    "react": ">=16.8.6",
-    "react-native": ">=0.60.0"
-  },
+  "deprecated": false,
+  "description": "<div align=\"center\">   <image align=\"center\" src=\"./assets/readme_header.svg\"/> </div> <div align=\"center\">   <h1>Stickyheader.js</h1> </div>",
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "babel-eslint": "^10.1.0",
     "@release-it/conventional-changelog": "^1.1.0",
+    "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
@@ -35,9 +53,26 @@
     "prettier": "^2.0.2",
     "release-it": "^13.5.1"
   },
+  "homepage": "https://github.com/netguru/sticky-parallax-header#readme",
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  }
+  },
+  "license": "MIT",
+  "main": "src/index.js",
+  "name": "react-native-sticky-parallax-header",
+  "peerDependencies": {
+    "react": ">=16.8.6",
+    "react-native": ">=0.60.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netguru/sticky-parallax-header.git"
+  },
+  "scripts": {
+    "release": "release-it"
+  },
+  "types": "src/index.d.ts",
+  "version": "0.3.0"
 }

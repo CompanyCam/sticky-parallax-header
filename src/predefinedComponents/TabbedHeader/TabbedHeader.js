@@ -144,6 +144,9 @@ export default class TabbedHeader extends React.Component {
       backgroundColor,
       backgroundImage,
       bounces,
+      customForeground,
+      customHeader,
+      onRefresh,
       snapToEdge,
       scrollEvent,
       renderBody,
@@ -153,39 +156,41 @@ export default class TabbedHeader extends React.Component {
       tabTextContainerActiveStyle,
       tabWrapperStyle,
       tabsContainerStyle,
-      onRef
+      onChangeTab,
+      onRef,
+      onFoldChange,
     } = this.props
 
     return (
-      <>
-        <StatusBar barStyle="light-content" backgroundColor={backgroundColor} translucent />
-        <StickyParallaxHeader
-          foreground={this.renderForeground(this.scrollY)}
-          header={this.renderHeader()}
-          deviceWidth={constants.deviceWidth}
-          parallaxHeight={sizes.homeScreenParallaxHeader}
-          scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
-            useNativeDriver: false,
-            listener: (e) => scrollEvent && scrollEvent(e)
-          })}
-          headerSize={this.setHeaderSize}
-          headerHeight={headerHeight}
-          tabs={tabs}
-          tabTextStyle={tabTextStyle}
-          tabTextActiveStyle={tabTextActiveStyle}
-          tabTextContainerStyle={tabTextContainerStyle}
-          tabTextContainerActiveStyle={tabTextContainerActiveStyle}
-          tabsContainerBackgroundColor={backgroundColor}
-          tabWrapperStyle={tabWrapperStyle}
-          backgroundImage={backgroundImage}
-          bounces={bounces}
-          snapToEdge={snapToEdge}
-          tabsContainerStyle={tabsContainerStyle}
-          onRef={onRef}
-        >
-          {renderBody('Popular Quizes')}
-        </StickyParallaxHeader>
-      </>
+      <StickyParallaxHeader
+        foreground={customForeground(this.scrollY)}
+        header={customHeader(this.scrollY)}
+        deviceWidth={constants.deviceWidth}
+        parallaxHeight={sizes.homeScreenParallaxHeader}
+        scrollEvent={event([{ nativeEvent: { contentOffset: { y: this.scrollY.y } } }], {
+          useNativeDriver: false,
+          listener: (e) => scrollEvent && scrollEvent(e)
+        })}
+        onFoldChange={onFoldChange}
+        onChangeTab={onChangeTab}
+        onRefresh={onRefresh}
+        headerSize={this.setHeaderSize}
+        headerHeight={headerHeight}
+        tabs={tabs}
+        tabTextStyle={tabTextStyle}
+        tabTextActiveStyle={tabTextActiveStyle}
+        tabTextContainerStyle={tabTextContainerStyle}
+        tabTextContainerActiveStyle={tabTextContainerActiveStyle}
+        tabsContainerBackgroundColor={backgroundColor}
+        tabWrapperStyle={tabWrapperStyle}
+        backgroundImage={backgroundImage}
+        bounces={bounces}
+        snapToEdge={snapToEdge}
+        tabsContainerStyle={tabsContainerStyle}
+        onRef={onRef}
+      >
+        {renderBody('Popular Quizes')}
+      </StickyParallaxHeader>
     )
   }
 }
@@ -228,24 +233,7 @@ TabbedHeader.defaultProps = {
   logoStyle: styles.logo,
   logoContainerStyle: styles.headerWrapper,
   renderBody: (title) => <RenderContent title={title} />,
-  tabs: [
-    {
-      title: 'Popular',
-      content: <RenderContent title="Popular Quizes" />
-    },
-    {
-      title: 'Product Design',
-      content: <RenderContent title="Product Design" />
-    },
-    {
-      title: 'Development',
-      content: <RenderContent title="Development" />
-    },
-    {
-      title: 'Project Management',
-      content: <RenderContent title="Project Management" />
-    }
-  ],
+  tabs: [],
   tabTextStyle: styles.tabText,
   tabTextActiveStyle: styles.tabText,
   tabTextContainerStyle: styles.tabTextContainerStyle,

@@ -17,7 +17,8 @@ import {
   Animated,
   Easing,
   ViewPropTypes,
-  Image
+  Image,
+  RefreshControl
 } from 'react-native'
 import { ScrollableTabBar, ScrollableTabView } from './components'
 import { constants } from './constants'
@@ -75,6 +76,10 @@ class StickyParallaxHeader extends Component {
         const scrollNode = getSafelyScrollNode(this.scroll)
         scrollNode.scrollTo({ y: scrollTargetPosition, duration: 1000 })
       }, 250)
+    }
+
+    if (prevState.isFolded !== this.state.isFolded) {
+      this.props.onFoldChange(this.state.isFolded);
     }
   }
 
@@ -332,7 +337,6 @@ class StickyParallaxHeader extends Component {
 
   render() {
     const {
-      backgroundImage,
       children,
       contentContainerStyles,
       header,
@@ -378,7 +382,7 @@ class StickyParallaxHeader extends Component {
           stickyHeaderIndices={shouldRenderTabs ? [1] : []}
           showsVerticalScrollIndicator={false}
           refreshControl={
-            onRefresh? <RefreshControl refreshing={refreshing} onRefresh={()=>this.onRefreshHandler()} />: null
+            onRefresh ? <RefreshControl refreshing={refreshing} onRefresh={()=>this.onRefreshHandler()} />: null
           }
           onScroll={event(
             [
@@ -411,14 +415,17 @@ class StickyParallaxHeader extends Component {
                 }
               ]}
             />
-            {backgroundImage
+            {/* {backgroundImage
               ? this.renderImageBackground(scrollHeight)
-              : this.renderPlainBackground(scrollHeight)}
+              : this.renderPlainBackground(scrollHeight)} */}
             {this.renderForeground(scrollHeight)}
           </View>
           {shouldRenderTabs && this.renderTabs()}
           <ScrollableTabView
-            contentContainerStyles={contentContainerStyles}
+            contentContainerStyles={{
+              ...contentContainerStyles,
+              maxHeight: Dimensions.get('window').height - headerHeight,
+            }}
             initialPage={initialPage}
             onChangeTab={(i) => this.onChangeTabHandler(i)}
             tabs={tabs}
